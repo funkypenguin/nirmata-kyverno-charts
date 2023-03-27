@@ -1,6 +1,101 @@
 apiVersion: v1
 entries:
+  best-practice-policies:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-27T20:54:42.071169009Z"
+    description: Best Practice policy set
+    digest: ef2bc38b2b3b352edabd189e42720f54fce2374ef553e4cf028a4a7df622d3e8
+    keywords:
+    - kubernetes
+    - nirmata
+    - kyverno
+    - aws
+    - adapter
+    - policy
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: best-practice-policies
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/best-practice-policies-0.1.0/best-practice-policies-0.1.0.tgz
+    version: 0.1.0
+  enterprise-kyverno-operator:
+  - apiVersion: v2
+    appVersion: v0.1.0-rc.1
+    created: "2023-03-27T20:54:42.233135234Z"
+    description: Helm Chart for Enterprise Kyverno Operator
+    digest: 4e24f1474bb0c96b1d26412bb47fae16813ad78d913be7a2ec99388d781c5a84
+    home: https://kyverno.io/
+    icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+    keywords:
+    - kubernetes
+    - nirmata
+    - enterprise kyverno operator
+    - kyverno operator
+    kubeVersion: '>=1.20.0-0'
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: enterprise-kyverno-operator
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/enterprise-kyverno-operator-v0.1.0-rc.2/enterprise-kyverno-operator-v0.1.0-rc.2.tgz
+    version: v0.1.0-rc.2
+  kube-bench-adapter:
+  - apiVersion: v2
+    appVersion: v0.2.1
+    created: "2023-03-27T20:54:42.404547824Z"
+    description: The kube-bench adapter periodically runs a CIS benchmark check using
+      cron-job with a tool called kube-bench and produces a cluster-wide policy report
+      based on the Policy Report Custom Resource Definition
+    digest: 7021c91e200bd464c234866e2ed5df70c53adaf764c989267cf1d82e45b3fb96
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: kube-bench-adapter
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/kube-bench-adapter-v1.2.3/kube-bench-adapter-v1.2.3.tgz
+    version: v1.2.3
   kyverno:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: Syntax change for webhooksCleanup switch to match with the rest of the file
+        - kind: fixed
+          description: Handle multiple extraArgs in init container
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://kyverno.io/docs
+      artifacthub.io/operator: "false"
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: v1.9.1-n4k.nirmata.1
+    created: "2023-03-27T20:54:42.593212115Z"
+    description: Kubernetes Native Policy Management
+    digest: a0f1758ed7baf39cec07b8702bf993a0ccc131a76d1f2c4bdacfa6d562ae92a0
+    home: https://kyverno.io/
+    icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+    keywords:
+    - kubernetes
+    - nirmata
+    - policy agent
+    - policy engine
+    - validating webhook
+    - admissions controller
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: kyverno
+    sources:
+    - https://github.com/kyverno/kyverno
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/kyverno-1.6.2/kyverno-1.6.2.tgz
+    version: 1.6.2
   - apiVersion: v1
     appVersion: v1.5.1
     created: "2021-11-07T10:55:05.903419-08:00"
@@ -25,4 +120,87 @@ entries:
     urls:
     - https://nirmata.github.io/kyverno-charts/kyverno-v1.1.0.tgz
     version: v1.1.0
-generated: "2021-11-07T10:55:05.900222-08:00"
+  kyverno-operator:
+  - apiVersion: v1
+    appVersion: 0.1.0
+    created: "2023-03-27T20:54:42.736935922Z"
+    description: Kyverno Operator
+    digest: ca762594ede66e7dc49cce6baf51d266574b39cbf212c3d012ca0f5f65887550
+    home: https://kyverno.io/
+    icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+    keywords:
+    - kubernetes
+    - nirmata
+    - kyverno operator
+    - kyverno monitor
+    - admissions controller
+    kubeVersion: '>=1.20.0-0'
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: kyverno-operator
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/kyverno-operator-v0.1.9/kyverno-operator-v0.1.9.tgz
+    version: v0.1.9
+  nirmata-aws-adapter:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-27T20:54:42.878664794Z"
+    description: Helm chart for the Nirmata AWS Adapter
+    digest: 68c8b35af00da3c73ddf246c9ad6695e3a9d539c74106612f84f338f12d3ca4b
+    keywords:
+    - kubernetes
+    - nirmata
+    - kyverno
+    - aws
+    - adapter
+    - policy
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: nirmata-aws-adapter
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/nirmata-aws-adapter-0.1.0/nirmata-aws-adapter-0.1.0.tgz
+    version: 0.1.0
+  pod-security-policies:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-27T20:54:43.024083531Z"
+    description: Pod Security Policy Set
+    digest: 994ecd2988debcc29a825e70f9d3f96328b1813e5516277e9a5dac6c496f2d3d
+    keywords:
+    - kubernetes
+    - nirmata
+    - kyverno
+    - aws
+    - adapter
+    - policy
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: pod-security-policies
+    type: application
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/pod-security-policies-0.1.0/pod-security-policies-0.1.0.tgz
+    version: 0.1.0
+  venafi-adapter:
+  - apiVersion: v1
+    appVersion: v0.1.0
+    created: "2023-03-27T20:54:43.172682223Z"
+    description: Nirmata Venafi Adapter
+    digest: f97a9bdf46fd989cf9ff702694dcbd57da06d838986fe3d81ba1864695a38044
+    home: https://kyverno.io/
+    icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+    keywords:
+    - kubernetes
+    - nirmata
+    - venafi adapter
+    maintainers:
+    - name: Nirmata
+      url: https://nirmata.com/
+    name: venafi-adapter
+    urls:
+    - https://github.com/funkypenguin/nirmata-kyverno-charts/releases/download/venafi-adapter-v0.1.12/venafi-adapter-v0.1.12.tgz
+    version: v0.1.12
+generated: "2023-03-27T20:54:43.172692423Z"
