@@ -13,9 +13,9 @@ spec:
   namespace: {{ include "kyverno.namespace" . }}
   repository: {{ .Values.kyverno.image.repository }}
   version: {{ .Values.kyverno.image.tag }}
-  replicas: {{ .Values.kyverno.replicas }}
+  replicas: {{ include "enterprise-kyverno.kyvernoReplicas" . }}
 
   helm:
     values:
-      {{- toYaml .Values.kyverno.helm | nindent 6 }}
+    {{- include "enterprise-kyverno.combinedKyveroHelm" . | nindent 6 }}
 {{- end }}

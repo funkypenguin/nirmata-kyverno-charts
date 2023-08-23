@@ -4,6 +4,8 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.10.0
+  labels:
+    app.kubernetes.io/part-of: enterprise-kyverno-operator
   creationTimestamp: null
   name: kyvernoes.security.nirmata.io
 spec:
@@ -15,7 +17,24 @@ spec:
     singular: kyverno
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - jsonPath: .spec.namespace
+      name: Namespace
+      type: string
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.replicas
+      name: Replicas
+      priority: 2
+      type: integer
+    - jsonPath: .status.isRunning
+      name: Running
+      type: boolean
+    - jsonPath: .status.isHA
+      name: HA Mode
+      type: boolean
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: Kyverno is the Schema for the kyvernoes API
@@ -63,7 +82,7 @@ spec:
                 description: Secrets storing licenseKey, apiKey
                 type: string
               version:
-                default: v1.8.5-n4kbuild.1
+                default: v1.9.5-n4k.nirmata.1
                 type: string
             type: object
           status:

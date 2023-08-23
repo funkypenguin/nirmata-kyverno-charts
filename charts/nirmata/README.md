@@ -21,45 +21,14 @@ Access the complete user documentation and guides at: https://kyverno.io.
 ### Get license key
 You need a license key to run Kyverno. If you are using Nirmata Enterprise for Kyverno, it is available in the UI. Else contact <support@nirmata.com>.
 
-### Install kyverno operator
+## Manage Kyverno through new Enterprise Kyverno Operator
+Install the Enterprise Kyverno Operator following instructions [here](https://github.com/nirmata/kyverno-charts/blob/main/charts/enterprise-kyverno-operator/README.md). The operator will manage Kyverno lifecycle.
 
-#### 1. Add Kyverno Helm Repository
-```console
-helm repo add nirmata https://nirmata.github.io/kyverno-charts/
-helm repo update nirmata
-```
+## (DEPRECATED) Independent Kyverno install with legacy Kyverno Operator
+We recommend managing Kyverno lifecycle through the Enterprise Kyverno Operator mentioned above. This section is for users using the legacy operator and managing Kyverno directly through its Helm Chart.
 
-#### 2. (Optional) If a custom CA is used, create a configmap corresponding to the same with key custom-ca.pem. E.g.
-Create the namespace
-```console
-kubectl create namespace nirmata-kyverno-operator
-```
-Create configmap in the namespace
-```console
-kubectl -n nirmata-kyverno-operator create configmap <e.g. ca-store-cm> --from-file=custom-ca.pem=<cert file e.g. some-cert.pem>
-```
-
-#### 3. Install kyverno-operator from nirmata helm repo in the nirmata-kyverno-operator namespace, with desired parameters.
-```console
-helm install kyverno-operator nirmata/kyverno-operator --namespace nirmata-kyverno-operator --create-namespace
-```
-
-Other parameters corresponding to custom CA or HTTP proxies, NO_PROXY should be provided as needed. E.g.
-```console
---set customCAConfigMap=<e.g. ca-store-cm> --set systemCertPath=<e.g. /etc/ssl/certs>  --set "extraEnvVars[0].name=HTTP_PROXY" --set "extraEnvVars[0].value=<e.g. http://test.com:8080>" ...
-```
-
-#### 4. Check pods are running
-```console
-kubectl -n nirmata-kyverno-operator get pods
-```
-
-#### 5. Check CRD is created
-```console
-kubectl -n nirmata-kyverno-operator get KyvernoOperator
-```
-
-## Installing the Chart
+**Install legacy Kyverno Operator**
+Install the legacy Kyverno Operator following instructions [here](https://github.com/nirmata/kyverno-charts/blob/main/charts/kyverno-operator/README.md).
 
 **Add the Kyverno Helm repository:**
 
@@ -290,6 +259,7 @@ The following table lists the configurable parameters of the kyverno chart and t
 | config.webhooks | string | `nil` | Defines the `namespaceSelector` in the webhook configurations. Note that it takes a list of `namespaceSelector` and/or `objectSelector` in the JSON format, and only the first element will be forwarded to the webhook configurations. The Kyverno namespace is excluded if `excludeKyvernoNamespace` is `true` (default) |
 | config.generateSuccessEvents | bool | `false` | Generate success events. |
 | config.metricsConfig | object | `{"annotations":{},"namespaces":{"exclude":[],"include":[]}}` | Metrics config. |
+| config.webhookAnnotations | object | `{}` | Defines annotations to set on webhook configurations. |
 | config.metricsConfig.annotations | object | `{}` | Additional annotations to add to the metricsconfigmap |
 | updateStrategy | object | See [values.yaml](values.yaml) | Deployment update strategy. Ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy |
 | service.port | int | `443` | Service port. |
@@ -321,11 +291,11 @@ The following table lists the configurable parameters of the kyverno chart and t
 | systemCertPath | string | `/etc/ssl/certs` | Path containing ssl certs within the container. Used only if customCAConfigMap is used |
 | licenceManager.enable | bool | `true` | Whether to use license manager |
 | licenceManager.imageRepository | string | `ghcr.io/nirmata/kyverno-license-manager` | License manager repository |
-| licenceManager.imageTag | string | `v0.0.1` | License manager image tag |
-| licenceManager.productName | string | `true` | Product name to be present in license |
+| licenceManager.imageTag | string | `v0.1.2` | License manager image tag |
+| licenceManager.productName | string | | Product name to be present in license, ignore product name check if empty |
 | licenceManager.validateIntervalMins | int | `60` | License validation interval in mins|
 | licenceManager.callHomeServer | string | `nirmata.io` | License server hostname:port |
-| licenceManager.licenseKey | string | | License key (required) |
+| licenceManager.licenseKey | string | `free-tier-license` | License key (required) |
 | licenceManager.apiKey | string | | License server API key |
 | licenceManager.clusterId | string | | Cluster Id to use. If not provided, uid of kube-system namnespace |
 | licenceManager.clusterName | string | | Cluster Name to use. Auto-generated if not provided |

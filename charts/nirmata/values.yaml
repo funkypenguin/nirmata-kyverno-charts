@@ -39,7 +39,7 @@ image:
   repository: ghcr.io/nirmata/kyverno
   # -- Image tag
   # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.9.1-n4k.nirmata.1
+  tag: v1.9.5-n4k.nirmata.2
   # -- Image pull policy
   pullPolicy: IfNotPresent
   # -- Image pull secrets
@@ -55,7 +55,7 @@ initImage:
   repository: ghcr.io/nirmata/kyvernopre
   # -- Image tag
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.9.1-n4k.nirmata.1
+  tag: v1.9.5-n4k.nirmata.2
   # -- Image pull policy
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
@@ -390,6 +390,14 @@ config:
 
   # Or provide an existing metrics config-map by uncommenting the below line
   # existingMetricsConfig: sample-metrics-configmap. Refer to the ./templates/metricsconfigmap.yaml for the structure of metrics configmap.
+
+
+  # -- Defines annotations to set on webhook configurations.
+  webhookAnnotations: {}
+  # Example to disable admission enforcer on AKS:
+  # 'admissions.enforcer/disabled': 'true'
+
+
 # -- Deployment update strategy.
 # Ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
 # @default -- See [values.yaml](values.yaml)
@@ -495,15 +503,15 @@ licenseManager:
   # -- License manager repo
   imageRepository: ghcr.io/nirmata/kyverno-license-manager
   # -- Image tag
-  imageTag: v0.0.1
-  # -- Product name to be present in license
-  productName: "Enterprise for Kyverno"
+  imageTag: v0.1.2
+  # -- Product name to be present in license, empty to ignore check
+  productName: ""
   # -- Validation interval in mins
   validateIntervalMins: 60
   # -- License server
   callHomeServer: "nirmata.io"
   # -- License key
-  licenseKey:
+  licenseKey: "free-tier-license"
   # -- License server API key
   apiKey:
   # -- Cluster Id. If not provided, use kube-system uid
@@ -555,7 +563,7 @@ cleanupController:
     repository: ghcr.io/nirmata/cleanup-controller  # kyverno: replaced in e2e tests
     # -- Image tag
     # Defaults to appVersion in Chart.yaml if omitted
-    tag: v1.9.1-n4k.nirmata.1
+    tag: v1.9.5-n4k.nirmata.2
     # -- Image pull policy
     pullPolicy: IfNotPresent
     # -- Image pull secrets

@@ -1,0 +1,6 @@
+{{- if .Values.awsAdapter.rbac.create }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ include "kyverno-aws-adapter.namespace" . }}
+{{- end}}

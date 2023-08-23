@@ -29,12 +29,16 @@ rbac:
     annotations: {}
       # example.com/annotation: value
 
+aws:
+  region: us-east-1
+  licenseConfigSecretName:
+
 image:
   # -- Image repository
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/nirmata/kyverno
   # -- Image tag
   # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.9.1-n4k.nirmata.1
+  tag: v1.9.5-n4k.nirmata.1
   # -- Image pull policy
   pullPolicy: IfNotPresent
   # -- Image pull secrets
@@ -45,7 +49,7 @@ initImage:
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/nirmata/kyvernopre
   # -- Image tag
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.9.1-n4k.nirmata.1
+  tag: v1.9.5-n4k.nirmata.1
   # -- Image pull policy
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
@@ -58,7 +62,7 @@ initContainer:
 licensemanagerImage:
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/nirmata/awslm
   # If licensemanagerImage.tag is missing, defaults to image.tag
-  tag:  0.1-rc2
+  tag:  0.1-rc4
   # If licensemanagerImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for licensemanagerImage; just add to image.pullSecrets
@@ -176,8 +180,8 @@ envVars: {}
 
 # -- Extra arguments to give to the binary.
 extraArgs:
-  - --autogenInternals=true
   - --loggingFormat=text
+  - --exceptionNamespace=kyverno
 
 # -- Array of extra init containers
 extraInitContainers: []
@@ -357,13 +361,13 @@ config:
   # The Kyverno namespace is excluded if `excludeKyvernoNamespace` is `true` (default)
   webhooks:
     # Exclude namespaces
-    # - namespaceSelector:
-    #     matchExpressions:
-    #     - key: kubernetes.io/metadata.name
-    #       operator: NotIn
-    #       values:
-    #         - kube-system
-    #         - kyverno
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-system
+            - kyverno
     # Exclude objects
     # - objectSelector:
     #     matchExpressions:
@@ -506,6 +510,9 @@ cleanupController:
     create: true
 
     serviceAccount:
+      # -- Create Service account
+      create: true
+
       # -- Service account name
       name:
 
@@ -531,7 +538,7 @@ cleanupController:
     repository: ghcr.io/nirmata/cleanup-controller  # kyverno: replaced in e2e tests
     # -- Image tag
     # Defaults to appVersion in Chart.yaml if omitted
-    tag: v1.9.1-n4k.nirmata.1
+    tag: v1.9.5-n4k.nirmata.1
     # -- Image pull policy
     pullPolicy: IfNotPresent
     # -- Image pull secrets
